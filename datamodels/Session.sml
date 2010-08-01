@@ -1,31 +1,20 @@
 structure Session :> SESSION = struct
-	type session = (Web.request *
-	{
-		uid : int,
-		name : string
-	} option)
+	type session = {
+		req : Web.request,
+		user : User.user option
+	}
 
 	exception NotLoggedIn
 
-	(*
-		Call this to force the second half of the session to be SOME, reporting
-		programmer error if it is not.
-	*)
-	fun loggedinSession (req, sopt) = case sopt of
+	fun user (s : session) = case #user s of
 		NONE => raise NotLoggedIn
-		| SOME(s) => s
+		| SOME(u) => u
 
-	fun load req = case SQL.getUserByCookie "foo" of
-		NONE => (req, NONE)
-		| SOME {uid, name} => (req, SOME {uid = uid, name = name})
+	fun load req = {req = req, user = User.loadFromCookie "foo"}
 
-	fun loggedin (req, sopt) = Option.isSome sopt
+	fun loggedin (s : session) = Option.isSome (#user s)
 
-	fun requireLogin (req, sopt) = case loggedin (req, sopt) of
+	fun requireLogin (s : session) = case loggedin s of
 		true => ()
-		| false => raise WebUtil.redirectPostpath req ["login"]
-
-	fun uid (s:session) = #uid (loggedinSession s)
-
-	fun name (s:session) = #name (loggedinSession s)
+		| false => raise WebUtil.redirectPostpath (#req s) ["login"]
 end

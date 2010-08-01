@@ -15,6 +15,5 @@ signature SESSION = sig
 	val loggedin : session -> bool
 	val requireLogin : session -> unit (* Make this "redirect" instead? *)
 
-	val uid : session -> int
-	val name : session -> string
+	val user : session -> User.user
 end

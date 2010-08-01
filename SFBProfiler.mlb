@@ -6,6 +6,8 @@ stilts/web/web.mlb
 
 sql/SQL.squall.sml
 
+datamodels/User.sig
+datamodels/User.sml
 datamodels/Session.sig
 datamodels/Session.sml
 
