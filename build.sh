@@ -2,7 +2,11 @@
 
 echo -n "squall: "
 cd sql
-../stilts/db/squall/squall SQL.squall
+if ! ../stilts/db/squall/squall SQL.squall
+then
+	echo "FAILED"
+	exit 1
+fi
 cd ..
 echo "done."
 
@@ -11,7 +15,11 @@ cd templates
 for t in *.html
 do
 	echo -n "${t}... "
-	../stilts/smelt/smelt "${t}"
+	if ! ../stilts/smelt/smelt "${t}"
+	then
+		echo "FAILED"
+		exit 1
+	fi
 done
 cd ..
 echo "done."
