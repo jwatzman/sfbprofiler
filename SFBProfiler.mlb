@@ -4,10 +4,10 @@ stilts/db/sqlite/sqlite.mlb
 stilts/smelt/tinyxml/tinyxml.mlb
 stilts/web/web.mlb
 
-SQL.squall.sml
+sql/SQL.squall.sml
 
-Session.sig
-Session.sml
+datamodels/Session.sig
+datamodels/Session.sml
 
 templates/TPage.html.sml
 
@@ -15,6 +15,6 @@ pages/Page.sig
 pages/Home.sml
 pages/Login.sml
 
-Profiler.sig
-Profiler.sml
-main.sml
+main/Profiler.sig
+main/Profiler.sml
+main/main.sml
