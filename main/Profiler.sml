@@ -31,7 +31,7 @@ structure Profiler :> PROFILER = struct
 		hands off control to the dispatcher.
 	*)
 	fun handler req = case WebUtil.postpath req of
-		[] => raise WebUtil.redirectPostpath req [""]
+		[] => dispatch req [] ""
 		| page::args => dispatch req args page
 
 	(*
@@ -40,7 +40,7 @@ structure Profiler :> PROFILER = struct
 	val db = SQLite.opendb "sfbprofiler.sqlite"
 	val () = SQL.prepare db
 
-	val app = WebUtil.dumpRequestWrapper print (WebUtil.exnWrapper handler)
+	val app = (*WebUtil.dumpRequestWrapper print*) (WebUtil.exnWrapper handler)
 
 	fun main () =
 	let
