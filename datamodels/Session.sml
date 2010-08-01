@@ -1,4 +1,10 @@
 structure Session :> SESSION = struct
+	structure Facebook = struct
+		val appId = "133494973358693"
+		val apiKey = "edfb83d2b913a739de23c6243a7c9050"
+		val appSecret = "31e0220e582afb413b1fde95f5828350"
+	end
+
 	type session = {
 		req : Web.request,
 		user : User.user option
