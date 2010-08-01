@@ -8,9 +8,9 @@ echo "done."
 
 echo -n "smelt: "
 cd templates
-for t in *
+for t in *.html
 do
-	echo "${t}... "
+	echo -n "${t}... "
 	../stilts/smelt/smelt "${t}"
 done
 cd ..
