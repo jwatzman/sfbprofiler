@@ -1,4 +1,5 @@
 signature PAGE = sig
-	val handler : Session.session -> string list -> Form.form
+	(* session -> args -> form -> (title, body) *)
+	val handler : Session.session option -> string list -> Form.form
 		-> (string * Web.html)
 end

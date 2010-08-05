@@ -1,15 +1,20 @@
 structure User :> USER = struct
 	type user = {
 		uid : int,
-		name : string,
-		cookie : string
+		name : string
 	}
 
-	fun loadFromCookie c = case SQL.getUserByCookie c of
+	fun load uid = case SQL.getUserByUid uid of
 		NONE => NONE
-		| SOME({uid, name}) => SOME({uid = uid, name = name, cookie = c})
+		| SOME name => SOME {uid=uid, name=name}
+
+	fun new uid name =
+	let
+		val () = SQL.newUser (uid, name)
+	in
+		{uid=uid, name=name}
+	end
 
 	fun uid (u : user) = #uid u
 	fun name (u : user) = #name u
-	fun cookie (u : user) = #cookie u
 end

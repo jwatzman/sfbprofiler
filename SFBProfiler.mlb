@@ -6,6 +6,9 @@ stilts/web/web.mlb
 
 sql/SQL.squall.sml
 
+facebook/Facebook.sig
+facebook/Facebook.sml
+
 datamodels/User.sig
 datamodels/User.sml
 datamodels/Session.sig
@@ -15,8 +18,8 @@ templates/TPage.html.sml
 templates/TLogin.html.sml
 
 pages/Page.sig
-pages/Home.sml
 pages/Login.sml
+pages/Home.sml
 
 main/Profiler.sig
 main/Profiler.sml

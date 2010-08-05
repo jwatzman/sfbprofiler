@@ -1,4 +1,7 @@
 engine: sqlite
 
---- getUserByCookie: string -> {uid : int, name : string} option
-SELECT uid, name FROM users WHERE cookie = ?
+--- getUserByUid: int -> string option
+SELECT name FROM users WHERE uid = ?
+
+--- newUser: (int * string) -> unit
+INSERT INTO users (uid, name) VALUES (?, ?)

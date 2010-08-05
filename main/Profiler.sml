@@ -5,23 +5,15 @@ structure Profiler :> PROFILER = struct
 	*)
 	fun dispatch req args page =
 	let
-		val session = Session.load req
-
 		val handler = case page of
-			"login" => Login.handler
-			| _ =>
-			let
-				val () = Session.requireLogin session
-			in
-				case page of
-					"" => Home.handler
-					| _ => raise WebUtil.notFound
-			end
+			"" => Home.handler
+			| "login" => Login.handler
+			| _ => raise WebUtil.notFound
 
+		val sessionopt = Session.load req
 		val form = Form.load req
 
-		(* TODO some way to set the cookie *)
-		val (title, body) = handler session args form
+		val (title, body) = handler sessionopt args form
 	in
 		WebUtil.htmlResp (TPage.render {title=title, body=body})
 	end
