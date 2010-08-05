@@ -16,7 +16,13 @@ structure Session :> SESSION = struct
 		NONE => raise NotLoggedIn
 		| SOME(u) => u
 
-	fun load req = {req = req, user = User.loadFromCookie "foo"}
+	fun load (req:Web.request) =
+	let
+		fun printer (hname,hval) = print (hname ^ "=" ^ hval ^ "\n")
+		val _ = map printer (#http_headers req)
+	in
+		{req = req, user = User.loadFromCookie "foo"}
+	end
 
 	fun loggedin (s : session) = Option.isSome (#user s)
 
