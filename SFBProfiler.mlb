@@ -6,6 +6,8 @@ stilts/web/web.mlb
 
 sql/SQL.squall.sml
 
+facebook/MD5.sig
+facebook/MD5.sml
 facebook/Facebook.sig
 facebook/Facebook.sml
 
