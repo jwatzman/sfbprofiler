@@ -4,9 +4,7 @@ structure User :> USER = struct
 		name : string
 	}
 
-	fun load uid = case SQL.getUserByUid uid of
-		NONE => NONE
-		| SOME name => SOME {uid=uid, name=name}
+	val load = SQL.getUserByUid
 
 	fun new uid name =
 	let

@@ -11,6 +11,8 @@ structure Facebook :> FACEBOOK = struct
 	val apiKey = "edfb83d2b913a739de23c6243a7c9050"
 	val appSecret = "31e0220e582afb413b1fde95f5828350"
 
+	fun uid (f : facebook) = #uid f
+
 	val cookieName = "fbs_" ^ appId
 
 	(* this should be in stilts proper... *)
@@ -65,13 +67,31 @@ structure Facebook :> FACEBOOK = struct
 		(Option.valOf sigopt) = md5
 	end
 
+	(* TODO make this only run thru the list once *)
+	fun makeRecord cookieSplit =
+	let
+		fun findSplit s =
+		let
+			val (_,v) = Option.valOf
+				(List.find (fn (k,_) => k = s) cookieSplit)
+		in
+			v
+		end
+	in
+		{
+			access_token = findSplit "access_token",
+			secret = findSplit "secret",
+			session_key = findSplit "session_key",
+			uid = Option.valOf (Int.fromString (findSplit "uid"))
+		}
+	end
+
 	fun load (req : Web.request) =
 	(let
 		val cookieStr = Option.valOf (getCookie req cookieName)
 		val split = splitFBCookie cookieStr
-		val _ = print (if verifyFBSig split then "good\n" else "bad\n")
 	in
-		NONE
+		if verifyFBSig split then SOME(makeRecord split) else NONE
 	end) handle Option => NONE
 
 end
