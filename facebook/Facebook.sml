@@ -25,14 +25,19 @@ structure Facebook :> FACEBOOK = struct
 
 		val cookie = List.find (String.isPrefix (cname ^ "=")) cookies
 	in
-		NONE
+		case cookie of
+			SOME c => SOME (String.extract (c, size cname + 1, NONE))
+			| NONE => NONE
 	end
 
 	fun splitFBCookie cookieStr =
 	let
-		val parts = String.fields (fn c => c = #"&") cookieStr
+		val cookieStrNoQuotes = String.extract
+			(cookieStr, 1, SOME ((size cookieStr) - 2))
 
-		fun mapper [k,v] = (k,v)
+		val parts = String.fields (fn c => c = #"&") cookieStrNoQuotes
+
+		fun mapper [k,v] = (WebUtil.urldecode k, WebUtil.urldecode v)
 		  | mapper _ = raise Option
 	in
 		map (mapper o (String.fields (fn c => c = #"="))) parts
@@ -63,7 +68,8 @@ structure Facebook :> FACEBOOK = struct
 	fun load (req : Web.request) =
 	(let
 		val cookieStr = Option.valOf (getCookie req cookieName)
-		val _ = print (cookieStr ^ "\n")
+		val split = splitFBCookie cookieStr
+		val _ = print (if verifyFBSig split then "good\n" else "bad\n")
 	in
 		NONE
 	end) handle Option => NONE
