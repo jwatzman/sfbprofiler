@@ -12,7 +12,7 @@ structure Session :> SESSION = struct
 		val userOpt = User.load uid
 		val user = case userOpt of
 			SOME u => u
-			| NONE => User.new uid "Default Name"
+			| NONE => User.new uid (Facebook.name fb)
 	in
 		SOME {user = user, facebook = fb}
 	end) handle Option => NONE

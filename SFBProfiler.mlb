@@ -1,8 +1,11 @@
 $(SML_LIB)/basis/basis.mlb
+$(SML_LIB)/smlnj-lib/Util/smlnj-lib.mlb
 
 stilts/db/sqlite/sqlite.mlb
 stilts/smelt/tinyxml/tinyxml.mlb
 stilts/web/web.mlb
+stilts/curl/curl.mlb
+stilts/util/json.sml
 
 sql/SQL.squall.sml
 

@@ -24,4 +24,4 @@ done
 cd ..
 echo "done."
 
-mlton -verbose 2 -codegen native -link-opt -lsqlite3 SFBProfiler.mlb
+mlton -verbose 2 -codegen native -link-opt -lsqlite3 -link-opt -lcurl SFBProfiler.mlb stilts/curl/curl_supereasy.c

@@ -13,6 +13,18 @@ structure Facebook :> FACEBOOK = struct
 
 	fun uid (f : facebook) = #uid f
 
+	(* TODO lazy loading and caching *)
+	fun name (f : facebook) =
+	(let
+		val url = "https://graph.facebook.com/me?fields=name&access_token="
+			^ (#access_token f)
+
+		val SOME(JSON.Object map) = JSON.fromString (Curl.curl url)
+		val SOME(JSON.String name) = JSON.Map.find (map, "name")
+	in
+		name
+	end) handle Bind => raise Fail "invalid result when caching name"
+
 	val cookieName = "fbs_" ^ appId
 
 	(* this should be in stilts proper... *)
