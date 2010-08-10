@@ -18,12 +18,20 @@ structure Profiler :> PROFILER = struct
 		WebUtil.htmlResp (TPage.render {title=title, body=body})
 	end
 
+	(* How to serve static resources *)
+	val staticApp = StaticServer.server {
+		basepath = ".",
+		expires = NONE,
+		headers = nil
+	}
+
 	(*
 		Root request handler. Just makes sure the postpath is non-empty and
 		hands off control to the dispatcher.
 	*)
 	fun handler req = case WebUtil.postpath req of
 		[] => dispatch req [] ""
+		| "static"::_ => staticApp req
 		| page::args => dispatch req args page
 
 	(*

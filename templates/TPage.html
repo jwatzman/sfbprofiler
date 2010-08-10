@@ -1,10 +1,21 @@
 <?template TPage {title, body} ?>
 <html>
 	<head>
+		<link rel="stylesheet" type="text/css" href="static/page.css" />
 		<title>${title}</title>
 	</head>
 	<body>
-		<h1>${title}</h1>
-		$H{body}
+		<div class="header">
+			<h1>${title}</h1>
+		</div>
+		<hr />
+		<div class="body">
+			$H{body}
+		</div>
+		<hr />
+		<div class="footer">
+			SFBProfiler by
+			<a href="http://www.facebook.com/jwatzman">jwatzman</a>
+		</div>
 	</body>
 </html>
