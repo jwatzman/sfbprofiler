@@ -5,3 +5,9 @@ SELECT uid, name FROM users WHERE uid = ?
 
 --- newUser: (int * string) -> unit
 INSERT INTO users (uid, name) VALUES (?, ?)
+
+--- getCharacterByCharid: int -> {charid : int, owner : int, name : string, data : string} option
+SELECT charid, owner, name, data FROM characters WHERE charid = ?
+
+--- newCharacter: (int * string * string) -> unit
+INSERT INTO characters (owner, name, data) VALUES (?, ?, ?)
