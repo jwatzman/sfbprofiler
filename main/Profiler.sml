@@ -40,12 +40,13 @@ structure Profiler :> PROFILER = struct
 	val db = SQLite.opendb "sfbprofiler.sqlite"
 	val () = SQL.prepare db
 
-	val app = (*WebUtil.dumpRequestWrapper print*) (WebUtil.exnWrapper handler)
+	val app = WebUtil.dumpRequestWrapper print (WebUtil.exnWrapper handler)
 
 	fun main () =
 	let
 		val () = print "Listening...\n"
-		val () = HTTPServer.serve (INetSock.any 8080) app
+		val _ = CHTTPServer.spawn_server (INetSock.any 8080) app
+		val () = T.run ()
 	in
 		()
 	end

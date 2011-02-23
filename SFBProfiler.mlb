@@ -1,11 +1,13 @@
 $(SML_LIB)/basis/basis.mlb
 $(SML_LIB)/smlnj-lib/Util/smlnj-lib.mlb
 
+stilts/chiralml/chiralml.mlb
+stilts/curl/curl.mlb
 stilts/db/sqlite/sqlite.mlb
 stilts/smelt/tinyxml/tinyxml.mlb
-stilts/web/web.mlb
-stilts/curl/curl.mlb
 stilts/util/json.sml
+stilts/web/web.mlb
+stilts/web/server/http-server-fn.sml
 
 sql/SQL.squall.sml
 
@@ -26,6 +28,7 @@ pages/Page.sig
 pages/Login.sml
 pages/Home.sml
 
+main/chiral.sml
 main/Profiler.sig
 main/Profiler.sml
 main/main.sml
