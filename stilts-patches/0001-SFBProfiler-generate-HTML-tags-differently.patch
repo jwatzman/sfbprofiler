@@ -1,0 +1,25 @@
+From f349e7a88a77b5f8e4a04d71ea27b4821ddd3c75 Mon Sep 17 00:00:00 2001
+From: Josh Watzman <jwatzman@jwatzman.org>
+Date: Wed, 23 Feb 2011 16:33:52 -0500
+Subject: [PATCH] SFBProfiler: generate HTML tags differently
+
+---
+ smelt/templategen.sml |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/smelt/templategen.sml b/smelt/templategen.sml
+index 48dc69e..9dc9a19 100644
+--- a/smelt/templategen.sml
++++ b/smelt/templategen.sml
+@@ -79,7 +79,7 @@ struct
+         GenConcat [
+           GenText ("<" ^ name),
+           GenConcat (map genAttr attrs),
+-          GenText " />"
++          GenText ("></" ^ name ^ ">")
+         ]
+     | genElement (name, attrs, SOME children) =
+         GenConcat [
+-- 
+1.7.4.1
+
