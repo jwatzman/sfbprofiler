@@ -1,0 +1,5 @@
+SFBProfiler
+sfbprofiler.sqlite
+sql/*.squall.sml
+stilts
+templates/*.html.sml
