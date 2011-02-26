@@ -1,3 +1,4 @@
+facebook/FacebookConfig.sml
 SFBProfiler
 sfbprofiler.sqlite
 sql/*.squall.sml

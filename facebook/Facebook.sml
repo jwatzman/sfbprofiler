@@ -1,15 +1,13 @@
 structure Facebook :> FACEBOOK = struct
 
+	open FacebookConfig
+
 	type facebook = {
 		access_token : string,
 		secret : string,
 		session_key : string,
 		uid : int
 	}
-
-	val appId = "133494973358693"
-	val apiKey = "edfb83d2b913a739de23c6243a7c9050"
-	val appSecret = "31e0220e582afb413b1fde95f5828350"
 
 	fun uid (f : facebook) = #uid f
 

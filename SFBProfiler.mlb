@@ -13,6 +13,7 @@ sql/SQL.squall.sml
 
 md5/MD5.mlb
 
+facebook/FacebookConfig.sml
 facebook/Facebook.sig
 facebook/Facebook.sml
 
