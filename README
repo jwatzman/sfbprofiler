@@ -1,0 +1,19 @@
+SFBProfiler, a web RPG profiler built with SML and Facebook connect.
+
+This relies upon SML on Stilts, an SML web framework built by a friend. It's
+currently available at http://git.emarhavil.com/stilts.git
+
+To build, you'll need SML on Stilts checked out into the "stilts" directory
+and a copy of MLton. Build smelt and squall from stilts, add
+facebook/FacebookConfig.sml as appropriate and run "build.sh".
+
+This project is largely just me playing around with typesafe web programming
+and fooling around with my friend's Stilts framework. SFBProfiler is never
+expected to actually be released as a usable, finished product... but you never
+know. Hopefully the code will be useful to somebody; I'm having fun writing it.
+
+This code (SML source, scripts, documentation, etc) is released under the
+3-clause BSD license as detailed in the LICENSE file.
+
+Better information forthcoming. Feel free to email me at the address in the
+commit logs.
