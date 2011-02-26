@@ -11,8 +11,8 @@ stilts/web/server/http-server-fn.sml
 
 sql/SQL.squall.sml
 
-facebook/MD5.sig
-facebook/MD5.sml
+md5/MD5.mlb
+
 facebook/Facebook.sig
 facebook/Facebook.sml
 
