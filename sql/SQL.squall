@@ -6,8 +6,11 @@ SELECT uid, name FROM users WHERE uid = ?
 --- newUser: (int * string) -> unit
 INSERT INTO users (uid, name) VALUES (?, ?)
 
---- getCharacterByCharid: int -> {charid : int, owner : int, name : string, data : string} option
-SELECT charid, owner, name, data FROM characters WHERE charid = ?
+--- getCharacterByCharid: int -> {charid : int, name : string, ctype : int, data : string} option
+SELECT charid, name, ctype, data FROM characters WHERE charid = ?
 
---- newCharacter: (int * string * string) -> unit
-INSERT INTO characters (owner, name, data) VALUES (?, ?, ?)
+--- getShortCharactersForOwner: int -> {charid : int, name : string, ctype : int} list
+SELECT charid, name, ctype FROM characters WHERE owner = ?
+
+--- newCharacter: (int * string * int) -> unit
+INSERT INTO characters (owner, name, ctype, data) VALUES (?, ?, ?, "")

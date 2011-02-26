@@ -1,7 +1,6 @@
 signature CHARACTER = sig
 	type character
 	exception ShortCharacter
-	exception UnknownCharacterType
 
 	(* load by character ID *)
 	val load : int -> character option
@@ -10,15 +9,16 @@ signature CHARACTER = sig
 	   "short" and will raise ShortCharacter if you call get on them *)
 	val loadByOwner : int -> character list
 
-	(* owner ID -> name -> unit *)
+	(* owner ID -> name -> type -> unit *)
 	(* TODO should this return a character? *)
 	val new : int -> string -> unit
 
-	val id : character -> int
-	val ctype : character -> CharacterType.t
+	val charid : character -> int
 	val name : character -> string
-	val get : character -> string -> string (* TODO should return Form.form? *)
+	val ctype : character -> CharacterType.ctype
 
-	(* writes to DB *)
-	val update : character -> Form.form -> unit
+	val get : character -> string -> string
+
+	(* character id -> owner -> data -> success? *)
+	val update : int -> int -> Form.form -> bool
 end

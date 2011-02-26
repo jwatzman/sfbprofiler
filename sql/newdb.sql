@@ -9,6 +9,6 @@ CREATE TABLE characters (
 	charid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	owner INTEGER NOT NULL,
 	name CHAR(50) NOT NULL,
+	ctype INTEGER NOT NULL,
 	data TEXT NOT NULL
-	-- TODO add type
 );
