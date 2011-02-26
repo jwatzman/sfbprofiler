@@ -1,0 +1,16 @@
+<?template TCharacterList {user, characters} ?>
+<div>
+	<h2>Characters for ${User.name user}:</h2>
+	<table class="characters">
+		<tr>
+			<td>Name</td>
+			<td>Type</td>
+			<td>Edit</td>
+		</tr>
+		<tr t:for="c in characters">
+			<td>${Character.name c}</td>
+			<td>${CharacterType.typeToString (Character.ctype c)}</td>
+			<td>todo</td>
+		</tr>
+	</table>
+</div>
