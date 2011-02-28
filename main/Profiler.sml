@@ -7,6 +7,7 @@ structure Profiler :> PROFILER = struct
 	let
 		val handler = case page of
 			"" => Home.handler
+			| "new" => NewCharacter.handler
 			| _ => raise WebUtil.notFound
 
 		val sessionopt = Session.load req

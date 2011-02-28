@@ -32,6 +32,7 @@ templates/TCharacterList.html.sml
 pages/Page.sig
 pages/Login.sml
 pages/Home.sml
+pages/NewCharacter.sml
 
 main/chiral.sml
 main/Profiler.sig

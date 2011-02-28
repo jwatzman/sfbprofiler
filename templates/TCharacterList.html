@@ -13,4 +13,24 @@
 			<td>todo</td>
 		</tr>
 	</table>
+	<h2>Make a new character:</h2>
+	<form action="/new" method="POST" class="newcharacter">
+		<table>
+			<tr>
+				<td>Name:</td>
+				<td><input type="text" name="name" /></td>
+			</tr>
+			<tr>
+				<td>Type:</td>
+				<td>
+					<select name="ctype">
+						<option t:for="(i, s) in CharacterType.ctypes" value="${Int.toString i}">${s}</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Create" /></td>
+			</tr>
+		</table>
+	</form>
 </div>
