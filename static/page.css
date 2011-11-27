@@ -1,9 +1,4 @@
-.header
+.header, .footer
 {
-	text-align:right;
-}
-
-.footer
-{
-	text-align:right;
+	text-align: right;
 }
