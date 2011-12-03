@@ -13,9 +13,9 @@ structure Profiler :> PROFILER = struct
 		val sessionopt = Session.load req
 		val form = Form.load req
 
-		val (title, body) = handler sessionopt args form
+		val response = handler sessionopt args form
 	in
-		WebUtil.htmlResp (TPage.render {title=title, body=body})
+		WebUtil.htmlResp (Response.render response)
 	end
 
 	(* How to serve static resources *)

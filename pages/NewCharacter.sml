@@ -34,5 +34,5 @@ structure NewCharacter :> PAGE = struct
 			Home.handler session args form
 		end)
 			handle NewCharacterError s =>
-				("Error creating character", Web.HTML s)
+				Response.new ("Error creating character", Web.HTML s)
 end

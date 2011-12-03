@@ -1,6 +1,6 @@
 structure Home :> PAGE = struct
 	fun handler NONE args form = Login.handler NONE args form
-	  | handler (SOME s) _ _ = ("Home",
+	  | handler (SOME s) _ _ = Response.new ("Home",
 		let
 			val user = Session.user s
 		in

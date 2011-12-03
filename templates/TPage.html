@@ -1,7 +1,7 @@
-<?template TPage {title, body} ?>
+<?template TPage {title, body, css} ?>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="static/page.css" />
+		<link t:for="sheet in css" rel="stylesheet" type="text/css" href="${sheet}" />
 		<title>${title}</title>
 	</head>
 	<body>
