@@ -1,0 +1,64 @@
+form {
+	margin: auto;
+	width: 800px;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+li {
+	clear: both;
+	margin: 10px 0px;
+}
+
+.denselist li {
+	margin: 5px 0px;
+}
+
+input, textarea {
+	border-color: black;
+	border-style: solid;
+	border-width: 1px;
+	margin: 0px;
+	padding: 0px;
+	width: 798px;
+}
+
+.halfwidthcol textarea {
+	width: 388px;
+}
+
+.halfwidthcol input {
+	width: auto;
+}
+
+input.statsinput {
+	width: 20px;
+}
+
+textarea {
+	height: 200px;
+}
+
+h1 {
+	background-color: black;
+	color: white;
+	font-size: 20px;
+	margin: 0px;
+	text-align: center;
+}
+
+.halfwidthcol {
+	width: 390px;
+}
+
+.leftcol {
+	float: left;
+}
+
+.rightcol {
+	float: right;
+}

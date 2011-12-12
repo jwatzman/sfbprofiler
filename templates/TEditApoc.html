@@ -1,0 +1,124 @@
+<?template TEditApoc {charid, formdata} ?>
+<form action="/save" method="post">
+	<input type="hidden" name="charid" value="${charid}" />
+	<ul>
+		<li><h1>NAME</h1></li>
+		<li><input /></li>
+		<li><h1>DESCRIPTION</h1></li>
+		<li><textarea></textarea></li>
+		<li>
+		<ul class="leftcol halfwidthcol">
+			<li><h1>STATS</h1></li>
+			<li><ul class="denselist">
+				<li>
+				<span>
+					<input type="checkbox" id="cool" />
+					<input maxlength="2" class="statsinput" />
+					<label for="cool">Cool</label>
+					(do something under fire)
+				</span>
+				<span class="rightcol">
+					<label for="shattered">Shattered</label>
+					<input type="checkbox" id="shattered" />
+				</span>
+				</li>
+				<li>
+				<span>
+					<input type="checkbox" id="hard" />
+					<input maxlength="2" class="statsinput" />
+					<label for="hard">Hard</label>
+					(go aggro, seize by force)
+				</span>
+				<span class="rightcol">
+					<label for="crippled">Crippled</label>
+					<input type="checkbox" id="crippled" />
+				</span>
+				</li>
+				<li>
+				<span>
+					<input type="checkbox" id="hot" />
+					<input maxlength="2" class="statsinput" />
+					<label for="hot">Hot</label>
+					(seduce or manipulate)
+				</span>
+				<span class="rightcol">
+					<label for="disfigured">Disfigured</label>
+					<input type="checkbox" id="disfigured" />
+				</span>
+				</li>
+				<li>
+				<span>
+					<input type="checkbox" id="sharp" />
+					<input maxlength="2" class="statsinput" />
+					<label for="sharp">Sharp</label>
+					(read a sitch or person)
+				</span>
+				<span class="rightcol">
+					<label for="broken">Broken</label>
+					<input type="checkbox" id="broken" />
+				</span>
+				</li>
+				<li>
+				<span>
+					<input type="checkbox" id="weird" />
+					<input maxlength="2" class="statsinput" />
+					<label for="weird">Weird</label>
+					(open your brain)
+				</span>
+				</li>
+			</ul></li>
+			<li><h1>HARM</h1></li>
+			<li><ul class="denselist">
+				<li>
+				<span>
+					<input type="checkbox" id="harm3" />
+					<label for="harm3">3 o'clock</label>
+				</span>
+				<span class="rightcol">
+					<input type="checkbox" id="harm10" />
+					<label for="harm3">10 o'clock</label>
+				</span>
+				</li>
+				<li>
+				<span>
+					<input type="checkbox" id="harm6" />
+					<label for="harm3">6 o'clock</label>
+				</span>
+				<span class="rightcol">
+					<input type="checkbox" id="harm11" />
+					<label for="harm3">11 o'clock</label>
+				</span>
+				</li>
+				<li>
+				<span>
+					<input type="checkbox" id="harm9" />
+					<label for="harm3">9 o'clock</label>
+				</span>
+				<span class="rightcol">
+					<input type="checkbox" id="harm12" />
+					<label for="harm3">12 o'clock</label>
+				</span>
+				</li>
+			</ul></li>
+			<li><h1>EXPERIENCE</h1></li>
+			<li><span>
+				<input type="checkbox" />
+				<input type="checkbox" />
+				<input type="checkbox" />
+				<input type="checkbox" />
+				<input type="checkbox" />
+			</span></li>
+			<li><h1>HX</h1></li>
+			<li><textarea></textarea></li>
+		</ul>
+		<ul class="rightcol halfwidthcol">
+			<li><h1>CHARACTER MOVES</h1></li>
+			<li><textarea></textarea></li>
+			<li><h1>GEAR</h1></li>
+			<li><textarea></textarea></li>
+		</ul>
+		</li>
+		<li><h1>OTHER NOTES</h1></li>
+		<li><textarea></textarea></li>
+	</ul>
+</form>
