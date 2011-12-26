@@ -25,6 +25,10 @@ datamodels/CharacterType.sml
 datamodels/Character.sig
 datamodels/Character.sml
 
+templates/mini/MTutil.sml
+templates/mini/MTcbox.html.sml
+templates/mini/MT.sml
+
 templates/TPage.html.sml
 templates/TLogin.html.sml
 templates/TCharacterList.html.sml
