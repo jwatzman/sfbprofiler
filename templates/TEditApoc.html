@@ -5,7 +5,7 @@
 		<li><h1>NAME</h1></li>
 		<li>$H{MT.text (formdata, "name")}</li>
 		<li><h1>DESCRIPTION</h1></li>
-		<li><textarea></textarea></li>
+		<li>$H{MT.ta (formdata, "description")}</li>
 		<li>
 		<ul class="leftcol halfwidthcol">
 			<li><h1>STATS</h1></li>
@@ -109,16 +109,16 @@
 				$H{MT.cbox (formdata, "xp5")}
 			</span></li>
 			<li><h1>HX</h1></li>
-			<li><textarea></textarea></li>
+			<li>$H{MT.ta (formdata, "hx")}</li>
 		</ul>
 		<ul class="rightcol halfwidthcol">
 			<li><h1>CHARACTER MOVES</h1></li>
-			<li><textarea></textarea></li>
+			<li>$H{MT.ta (formdata, "moves")}</li>
 			<li><h1>GEAR</h1></li>
-			<li><textarea></textarea></li>
+			<li>$H{MT.ta (formdata, "gear")}</li>
 		</ul>
 		</li>
 		<li><h1>OTHER NOTES</h1></li>
-		<li><textarea></textarea></li>
+		<li>$H{MT.ta (formdata, "notes")}</li>
 	</ul>
 </form>
