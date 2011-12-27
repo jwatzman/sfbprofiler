@@ -29,6 +29,7 @@ templates/mini/MTUtil.sml
 templates/mini/MTcbox.html.sml
 templates/mini/MTtext.html.sml
 templates/mini/MTsmtext.html.sml
+templates/mini/MTta.html.sml
 templates/mini/MT.sml
 
 templates/TPage.html.sml
