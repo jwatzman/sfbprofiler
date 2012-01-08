@@ -1,13 +1,17 @@
 structure Facebook :> FACEBOOK = struct
 
+	exception FacebookLoadError
+
 	open FacebookConfig
 
 	type facebook = {
 		access_token : string,
-		secret : string,
 		session_key : string,
 		uid : int
 	}
+
+	fun assertOpt NONE = raise FacebookLoadError
+	  | assertOpt (SOME(s)) = s
 
 	fun uid (f : facebook) = #uid f
 
@@ -23,7 +27,7 @@ structure Facebook :> FACEBOOK = struct
 		name
 	end) handle Bind => raise Fail "invalid result when caching name"
 
-	val cookieName = "fbs_" ^ appId
+	val cookieName = "fbsr_" ^ appId
 
 	(* this should be in stilts proper... *)
 	fun getCookie req cname =
@@ -42,66 +46,34 @@ structure Facebook :> FACEBOOK = struct
 			| NONE => NONE
 	end
 
-	fun splitFBCookie cookieStr =
+	(* The base64url spec says that strings should not be padded, but the
+	   base64 deocder requires them to be, so do the padding. TODO this might
+	   want to be moved into the base64 implementation. *)
+	fun base64pad str =
 	let
-		val cookieStrNoQuotes = String.extract
-			(cookieStr, 1, SOME ((size cookieStr) - 2))
+		val n = 3
+		val sz = size str
+		val pad_sz = n - (sz mod n)
 
-		val parts = String.fields (fn c => c = #"&") cookieStrNoQuotes
+		val padding =
+			if pad_sz = n then ""
+			else implode (List.tabulate (pad_sz, fn _ => #"="))
 
-		fun mapper [k,v] = (WebUtil.urldecode k, WebUtil.urldecode v)
-		  | mapper _ = raise Option
 	in
-		map (mapper o (String.fields (fn c => c = #"="))) parts
-	end
-
-	fun verifyFBSig cookieSplit =
-	let
-		fun findSig [] = (NONE, [])
-		  | findSig ((k,v)::rest) =
-			let
-				val (recsig, reclist) = findSig rest
-			in
-				if k = "sig"
-				then (SOME v, reclist)
-				else (recsig, (k,v)::reclist)
-			end
-
-		val (sigopt, cookieSplitNoSig) = findSig cookieSplit
-
-		val payload =
-			foldl (fn ((k,v),a) => a ^ k ^ "=" ^ v) "" cookieSplitNoSig
-
-		val md5 = MD5.md5 (payload ^ appSecret)
-	in
-		(Option.valOf sigopt) = md5
-	end
-
-	(* TODO make this only run thru the list once *)
-	fun makeRecord cookieSplit =
-	let
-		fun findSplit s =
-		let
-			val (_,v) = Option.valOf
-				(List.find (fn (k,_) => k = s) cookieSplit)
-		in
-			v
-		end
-	in
-		{
-			access_token = findSplit "access_token",
-			secret = findSplit "secret",
-			session_key = findSplit "session_key",
-			uid = Option.valOf (Int.fromString (findSplit "uid"))
-		}
+		str ^ padding
 	end
 
 	fun load (req : Web.request) =
 	(let
-		val cookieStr = Option.valOf (getCookie req cookieName)
-		val split = splitFBCookie cookieStr
+		val cookieStr = assertOpt (getCookie req cookieName)
+		val (hmac, data) =
+			(let
+				val [hmac, data] = String.tokens (fn x => x = #".") cookieStr
+			in
+				(hmac, data)
+			end) handle Bind => raise FacebookLoadError
 	in
-		if verifyFBSig split then SOME(makeRecord split) else NONE
-	end) handle Option => NONE
+		NONE
+	end) handle FacebookLoadError => NONE
 
 end
