@@ -34,8 +34,7 @@ structure HMAC :> HMAC = struct
 			val () = free outp
 			val () = free lenoutp
 		in
-			(* TODO turn bytes into a string and return it properly *)
-			"fixme"
+			Byte.bytesToString bytes
 		end
 
 end
