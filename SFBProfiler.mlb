@@ -8,8 +8,6 @@ stilts/web/server/http-server-fn.sml
 
 sql/SQL.squall.sml
 
-md5/MD5.mlb
-
 facebook/Facebook.mlb
 
 datamodels/User.sig
