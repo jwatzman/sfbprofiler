@@ -1,0 +1,22 @@
+$(SML_LIB)/basis/basis.mlb
+$(SML_LIB)/basis/mlton.mlb
+$(SML_LIB)/smlnj-lib/Util/smlnj-lib.mlb
+
+../stilts/curl/curl.mlb
+../stilts/web/web.mlb
+../stilts/util/json.sml
+
+Base64.sig
+Base64.sml
+
+ann
+	"allowFFI true"
+in
+	HMAC.sig
+	HMAC.sml
+end
+
+FacebookConfig.sml
+
+Facebook.sig
+Facebook.sml

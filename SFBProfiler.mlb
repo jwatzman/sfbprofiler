@@ -1,11 +1,8 @@
 $(SML_LIB)/basis/basis.mlb
-$(SML_LIB)/smlnj-lib/Util/smlnj-lib.mlb
 
 stilts/chiralml/chiralml.mlb
-stilts/curl/curl.mlb
 stilts/db/sqlite/sqlite.mlb
 stilts/smelt/tinyxml/tinyxml.mlb
-stilts/util/json.sml
 stilts/web/web.mlb
 stilts/web/server/http-server-fn.sml
 
@@ -13,9 +10,7 @@ sql/SQL.squall.sml
 
 md5/MD5.mlb
 
-facebook/FacebookConfig.sml
-facebook/Facebook.sig
-facebook/Facebook.sml
+facebook/Facebook.mlb
 
 datamodels/User.sig
 datamodels/User.sml
