@@ -5,21 +5,24 @@ structure Facebook :> FACEBOOK = struct
 	open FacebookConfig
 
 	type facebook = {
-		access_token : string,
-		session_key : string,
+		code : string,
 		uid : int
 	}
 
 	fun assertOpt NONE = raise FacebookLoadError
 	  | assertOpt (SOME(s)) = s
 
+	fun assert true = ()
+	  | assert false = raise FacebookLoadError
+
 	fun uid (f : facebook) = #uid f
 
-	(* TODO lazy loading and caching *)
+	(* TODO cache access token in DB instead of name (which won't reflect
+	   changes and prob violates the ToS) and re-grab the name each time *)
 	fun name (f : facebook) =
 	(let
 		val url = "https://graph.facebook.com/me?fields=name&access_token="
-			^ (#access_token f)
+			^ (#code f)
 
 		val SOME(JSON.Object map) = JSON.fromString (Curl.curl url)
 		val SOME(JSON.String name) = JSON.Map.find (map, "name")
@@ -51,7 +54,7 @@ structure Facebook :> FACEBOOK = struct
 	   want to be moved into the base64 implementation. *)
 	fun base64pad str =
 	let
-		val n = 3
+		val n = 4
 		val sz = size str
 		val pad_sz = n - (sz mod n)
 
@@ -66,14 +69,37 @@ structure Facebook :> FACEBOOK = struct
 	fun load (req : Web.request) =
 	(let
 		val cookieStr = assertOpt (getCookie req cookieName)
-		val (hmac, data) =
+		val (expected_hmac, data) =
 			(let
 				val [hmac, data] = String.tokens (fn x => x = #".") cookieStr
 			in
-				(hmac, data)
+				(assertOpt (Base64.decode (base64pad hmac)), data)
 			end) handle Bind => raise FacebookLoadError
+
+		val (algorithm, code, uid) =
+			(let
+				val _ = "extracting json\n"
+				val SOME(json_blob) = Base64.decode (base64pad data)
+				val SOME(JSON.Object map) = JSON.fromString json_blob
+
+				val SOME(JSON.String algorithm) =
+					JSON.Map.find (map, "algorithm")
+				val SOME(JSON.String code) =
+					JSON.Map.find (map, "code")
+				val SOME(JSON.String uid) =
+					JSON.Map.find (map, "user_id")
+			in
+				(algorithm, code, assertOpt (Int.fromString uid))
+			end) handle Bind => raise FacebookLoadError
+
+		val () = assert (algorithm = "HMAC-SHA256")
+		val computed_hmac = HMAC.hmac (appSecret, data)
+		val () = assert (computed_hmac = expected_hmac)
 	in
-		NONE
+		SOME({
+			code = code,
+			uid = uid
+		})
 	end) handle FacebookLoadError => NONE
 
 end
