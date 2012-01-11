@@ -15,16 +15,37 @@ structure Facebook :> FACEBOOK = struct
 	fun assert true = ()
 	  | assert false = raise FacebookLoadError
 
+	fun access_token (f : facebook) =
+	let
+		val access_token_url =
+			"https://graph.facebook.com/oauth/access_token" ^
+			"?client_id=" ^ appId ^
+			"&client_secret=" ^ appSecret ^
+			"&code=" ^ (#code f) ^
+			"&redirect_uri="
+
+	in
+		assertOpt
+			(Form.get
+				(Form.import (Curl.curl access_token_url))
+				"access_token"
+			)
+	end
+
 	fun uid (f : facebook) = #uid f
 
 	(* TODO cache access token in DB instead of name (which won't reflect
 	   changes and prob violates the ToS) and re-grab the name each time *)
 	fun name (f : facebook) =
 	(let
-		val url = "https://graph.facebook.com/me?fields=name&access_token="
-			^ (#code f)
+		val token = access_token f
 
-		val SOME(JSON.Object map) = JSON.fromString (Curl.curl url)
+		val graph_url =
+			"https://graph.facebook.com/me" ^
+			"?fields=name" ^
+			"&access_token=" ^ token
+
+		val SOME(JSON.Object map) = JSON.fromString (Curl.curl graph_url)
 		val SOME(JSON.String name) = JSON.Map.find (map, "name")
 	in
 		name
