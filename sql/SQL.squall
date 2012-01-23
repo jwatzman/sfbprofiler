@@ -6,8 +6,8 @@ SELECT uid, name FROM users WHERE uid = ?
 --- newUser: (int * string) -> unit
 INSERT INTO users (uid, name) VALUES (?, ?)
 
---- getCharacterByCharid: int -> {charid : int, name : string, ctype : int, data : string} option
-SELECT charid, name, ctype, data FROM characters WHERE charid = ?
+--- getCharacter: (int * int) -> {charid : int, name : string, ctype : int, data : string} option
+SELECT charid, name, ctype, data FROM characters WHERE charid = ? AND owner = ?
 
 --- getShortCharactersForOwner: int -> {charid : int, name : string, ctype : int} list
 SELECT charid, name, ctype FROM characters WHERE owner = ?

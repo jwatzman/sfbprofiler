@@ -10,7 +10,7 @@
 		<tr t:for="c in characters">
 			<td>${Character.name c}</td>
 			<td>${CharacterType.typeToString (Character.ctype c)}</td>
-			<td>todo</td>
+			<td><a href="/edit/${Int.toString (Character.charid c)}">Edit</a></td>
 		</tr>
 	</table>
 	<h2>Make a new character:</h2>

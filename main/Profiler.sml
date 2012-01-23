@@ -8,6 +8,7 @@ structure Profiler :> PROFILER = struct
 		val handler = case page of
 			"" => Home.handler
 			| "new" => NewCharacter.handler
+			| "edit" => EditCharacter.handler
 			| _ => raise WebUtil.notFound
 
 		val sessionopt = Session.load req

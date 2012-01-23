@@ -17,7 +17,19 @@ structure Character :> CHARACTER = struct
 			NONE => raise ShortCharacter
 			| SOME formdata => Option.getOpt (Form.get formdata field, "")
 
-	fun load _ = raise Fail ""
+	fun load charid owner =
+		let
+			val fromdb = SQL.getCharacter (charid, User.uid owner)
+		in
+			case fromdb of
+				NONE => NONE
+				| SOME {charid, name, ctype, data} => SOME {
+					charid = charid,
+					name = name,
+					ctype = Option.valOf (CharacterType.intToType ctype),
+					data = SOME (Form.import data)
+				}
+		end
 
 	fun loadByOwner owner =
 		let
