@@ -1,24 +1,25 @@
-form {
+.body form {
 	margin: auto;
 	width: 800px;
 }
 
-ul {
+.body ul {
 	list-style-type: none;
 	margin: 0px;
 	padding: 0px;
 }
 
-li {
+.body li {
 	clear: both;
 	margin: 10px 0px;
 }
 
-.denselist li {
+.body .denselist li {
 	margin: 5px 0px;
 }
 
-input, textarea {
+.body input,
+.body textarea {
 	border-color: black;
 	border-style: solid;
 	border-width: 1px;
@@ -27,23 +28,23 @@ input, textarea {
 	width: 798px;
 }
 
-.halfwidthcol textarea {
+.body .halfwidthcol textarea {
 	width: 388px;
 }
 
-.halfwidthcol input {
+.body .halfwidthcol input {
 	width: auto;
 }
 
-input.statsinput {
+.body input.statsinput {
 	width: 20px;
 }
 
-textarea {
+.body textarea {
 	height: 200px;
 }
 
-h1 {
+.body h1 {
 	background-color: black;
 	color: white;
 	font-size: 20px;
@@ -51,14 +52,14 @@ h1 {
 	text-align: center;
 }
 
-.halfwidthcol {
+.body .halfwidthcol {
 	width: 390px;
 }
 
-.leftcol {
+.body .leftcol {
 	float: left;
 }
 
-.rightcol {
+.body .rightcol {
 	float: right;
 }
