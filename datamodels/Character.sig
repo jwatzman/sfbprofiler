@@ -3,15 +3,13 @@ signature CHARACTER = sig
 	exception ShortCharacter
 
 	(* load by character ID *)
-	val load : int -> character option
+	val load : int -> User.user -> character option
 
 	(* load all characters by a given owner; the characters returned here are
 	   "short" and will raise ShortCharacter if you call get on them *)
-	val loadByOwner : int -> character list
+	val loadByOwner : User.user -> character list
 
-	(* owner ID -> name -> type -> unit *)
-	(* TODO should this return a character? *)
-	val new : int -> string -> unit
+	val new : User.user -> string -> CharacterType.ctype -> unit
 
 	val charid : character -> int
 	val name : character -> string

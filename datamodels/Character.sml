@@ -18,7 +18,7 @@ structure Character :> CHARACTER = struct
 
 	fun loadByOwner owner =
 		let
-			val fromdb = SQL.getShortCharactersForOwner owner
+			val fromdb = SQL.getShortCharactersForOwner (User.uid owner)
 			fun dbtochar {charid, name, ctype} = {
 				charid = charid,
 				name = name,
@@ -29,7 +29,8 @@ structure Character :> CHARACTER = struct
 			map dbtochar fromdb
 		end
 
-	fun new _ _ = raise Fail ""
+	fun new owner name ctype = SQL.newCharacter
+		(User.uid owner, name, CharacterType.typeToInt ctype)
 
 	fun update _ _ _ = raise Fail ""
 end

@@ -6,7 +6,7 @@ structure Home :> PAGE = struct
 		in
 			TCharacterList.render {
 				user = user,
-				characters = Character.loadByOwner (User.uid user)
+				characters = Character.loadByOwner user
 			}
 		end)
 end

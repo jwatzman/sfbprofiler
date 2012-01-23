@@ -6,30 +6,30 @@ structure NewCharacter :> PAGE = struct
 			val owner =
 				case session of
 					NONE => raise NewCharacterError "Not logged in"
-					| SOME s => User.uid (Session.user s)
+					| SOME s => Session.user s
 
 			val name =
 				case Form.get form "name" of
 					NONE => raise NewCharacterError "No name specified"
 					| SOME n => n
 
-			val ctype =
+			val ctypestr =
 				case Form.get form "ctype" of
 					NONE =>
 						raise NewCharacterError "No character type specified"
-					| SOME ctypestr =>
-						(case Int.fromString ctypestr of
-							NONE =>
-								raise NewCharacterError
-									"Non-integer character type"
-							| SOME ctype =>
-								if CharacterType.valid ctype
-									then ctype
-									else
-										raise NewCharacterError
-											"Invalid character type")
+					| SOME s => s
 
-			val () = SQL.newCharacter (owner, name, ctype)
+			val ctypeint =
+				case Int.fromString ctypestr of
+					NONE => raise NewCharacterError "Non-integer character type"
+					| SOME i => i
+
+			val ctype =
+				case CharacterType.intToType ctypeint of
+					NONE => raise NewCharacterError "Invalid character type"
+					| SOME c => c
+
+			val () = Character.new owner name ctype
 		in
 			Home.handler session args form
 		end)
