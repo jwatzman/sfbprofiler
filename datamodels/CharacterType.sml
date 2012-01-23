@@ -1,21 +1,15 @@
 structure CharacterType = struct
-	exception UnknownCharacterType of int
 
-	datatype ctype = TEST
+	datatype ctype = APOC
 
-	fun typeToInt TEST = 0
+	fun typeToInt APOC = 0
 
-	fun typeToString TEST = "TEST"
+	fun typeToString APOC = "Apocolypse World"
 
-	fun intToType 0 = TEST
-	  | intToType n = raise UnknownCharacterType n
+	fun intToType 0 = SOME(APOC)
+	  | intToType _ = NONE
 
-	val ctypes = map (fn t => (typeToInt t, typeToString t)) [TEST]
+	val ctypes = map (fn t => (typeToInt t, typeToString t)) [APOC]
 
-	fun valid n =
-	(let
-		val _ = intToType n
-	in
-		true
-	end) handle UnknownCharacterType _ => false
+	fun valid n = Option.isSome (intToType n)
 end

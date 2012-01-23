@@ -22,7 +22,7 @@ structure Character :> CHARACTER = struct
 			fun dbtochar {charid, name, ctype} = {
 				charid = charid,
 				name = name,
-				ctype = CharacterType.intToType ctype,
+				ctype = Option.valOf (CharacterType.intToType ctype),
 				data = NONE
 			}
 		in
