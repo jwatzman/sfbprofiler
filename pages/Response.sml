@@ -10,5 +10,12 @@ structure Response :> RESPONSE = struct
 	fun addCss {title, body, css} newCss =
 		{title = title, body = body, css = newCss::css}
 
-	fun render resp = TPage.render (addCss resp "static/page.css")
+	val cssBase = "http://sfbprofiler.jwatzman.org:8080/"
+
+	fun render {title, body, css} =
+		TPage.render {
+			title = title,
+			body = body,
+			css = map (fn c => cssBase ^ c) ("static/page.css"::css)
+		}
 end
