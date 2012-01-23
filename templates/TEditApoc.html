@@ -1,67 +1,67 @@
-<?template TEditApoc {charid, formdata} ?>
+<?template TEditApoc {character} ?>
 <form action="/save" method="post">
-	<input type="hidden" name="charid" value="${charid}" />
+	<input type="hidden" name="charid" value="${Int.toString (Character.charid character)}" />
 	<ul>
 		<li><h1>NAME</h1></li>
-		<li>$H{MT.text (formdata, "name")}</li>
+		<li>$H{MT.text (character, "name")}</li>
 		<li><h1>DESCRIPTION</h1></li>
-		<li>$H{MT.ta (formdata, "description")}</li>
+		<li>$H{MT.ta (character, "description")}</li>
 		<li>
 		<ul class="leftcol halfwidthcol">
 			<li><h1>STATS</h1></li>
 			<li><ul class="denselist">
 				<li>
 				<span>
-					$H{MT.cbox (formdata, "coolhl")}
-					$H{MT.smtext (formdata, "cool")}
+					$H{MT.cbox (character, "coolhl")}
+					$H{MT.smtext (character, "cool")}
 					<label for="coolhl">Cool</label>
 					(do something under fire)
 				</span>
 				<span class="rightcol">
 					<label for="shattered">Shattered</label>
-					$H{MT.cbox (formdata, "shattered")}
+					$H{MT.cbox (character, "shattered")}
 				</span>
 				</li>
 				<li>
 				<span>
-					$H{MT.cbox (formdata, "hardhl")}
-					$H{MT.smtext (formdata, "hard")}
+					$H{MT.cbox (character, "hardhl")}
+					$H{MT.smtext (character, "hard")}
 					<label for="hardhl">Hard</label>
 					(go aggro, seize by force)
 				</span>
 				<span class="rightcol">
 					<label for="crippled">Crippled</label>
-					$H{MT.cbox (formdata, "crippled")}
+					$H{MT.cbox (character, "crippled")}
 				</span>
 				</li>
 				<li>
 				<span>
-					$H{MT.cbox (formdata, "hothl")}
-					$H{MT.smtext (formdata, "hot")}
+					$H{MT.cbox (character, "hothl")}
+					$H{MT.smtext (character, "hot")}
 					<label for="hothl">Hot</label>
 					(seduce or manipulate)
 				</span>
 				<span class="rightcol">
 					<label for="disfigured">Disfigured</label>
-					$H{MT.cbox (formdata, "disfigured")}
+					$H{MT.cbox (character, "disfigured")}
 				</span>
 				</li>
 				<li>
 				<span>
-					$H{MT.cbox (formdata, "sharphl")}
-					$H{MT.smtext (formdata, "sharp")}
+					$H{MT.cbox (character, "sharphl")}
+					$H{MT.smtext (character, "sharp")}
 					<label for="sharphl">Sharp</label>
 					(read a sitch or person)
 				</span>
 				<span class="rightcol">
 					<label for="broken">Broken</label>
-					$H{MT.cbox (formdata, "broken")}
+					$H{MT.cbox (character, "broken")}
 				</span>
 				</li>
 				<li>
 				<span>
-					$H{MT.cbox (formdata, "weirdhl")}
-					$H{MT.smtext (formdata, "weird")}
+					$H{MT.cbox (character, "weirdhl")}
+					$H{MT.smtext (character, "weird")}
 					<label for="weirdhl">Weird</label>
 					(open your brain)
 				</span>
@@ -71,54 +71,54 @@
 			<li><ul class="denselist">
 				<li>
 				<span>
-					$H{MT.cbox (formdata, "harm3")}
+					$H{MT.cbox (character, "harm3")}
 					<label for="harm3">3 o'clock</label>
 				</span>
 				<span class="rightcol">
-					$H{MT.cbox (formdata, "harm10")}
+					$H{MT.cbox (character, "harm10")}
 					<label for="harm10">10 o'clock</label>
 				</span>
 				</li>
 				<li>
 				<span>
-					$H{MT.cbox (formdata, "harm6")}
+					$H{MT.cbox (character, "harm6")}
 					<label for="harm6">6 o'clock</label>
 				</span>
 				<span class="rightcol">
-					$H{MT.cbox (formdata, "harm11")}
+					$H{MT.cbox (character, "harm11")}
 					<label for="harm11">11 o'clock</label>
 				</span>
 				</li>
 				<li>
 				<span>
-					$H{MT.cbox (formdata, "harm9")}
+					$H{MT.cbox (character, "harm9")}
 					<label for="harm9">9 o'clock</label>
 				</span>
 				<span class="rightcol">
-					$H{MT.cbox (formdata, "harm12")}
+					$H{MT.cbox (character, "harm12")}
 					<label for="harm12">12 o'clock</label>
 				</span>
 				</li>
 			</ul></li>
 			<li><h1>EXPERIENCE</h1></li>
 			<li><span>
-				$H{MT.cbox (formdata, "xp1")}
-				$H{MT.cbox (formdata, "xp2")}
-				$H{MT.cbox (formdata, "xp3")}
-				$H{MT.cbox (formdata, "xp4")}
-				$H{MT.cbox (formdata, "xp5")}
+				$H{MT.cbox (character, "xp1")}
+				$H{MT.cbox (character, "xp2")}
+				$H{MT.cbox (character, "xp3")}
+				$H{MT.cbox (character, "xp4")}
+				$H{MT.cbox (character, "xp5")}
 			</span></li>
 			<li><h1>HX</h1></li>
-			<li>$H{MT.ta (formdata, "hx")}</li>
+			<li>$H{MT.ta (character, "hx")}</li>
 		</ul>
 		<ul class="rightcol halfwidthcol">
 			<li><h1>CHARACTER MOVES</h1></li>
-			<li>$H{MT.ta (formdata, "moves")}</li>
+			<li>$H{MT.ta (character, "moves")}</li>
 			<li><h1>GEAR</h1></li>
-			<li>$H{MT.ta (formdata, "gear")}</li>
+			<li>$H{MT.ta (character, "gear")}</li>
 		</ul>
 		</li>
 		<li><h1>OTHER NOTES</h1></li>
-		<li>$H{MT.ta (formdata, "notes")}</li>
+		<li>$H{MT.ta (character, "notes")}</li>
 	</ul>
 </form>

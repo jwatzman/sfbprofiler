@@ -12,7 +12,10 @@ structure Character :> CHARACTER = struct
 	fun name (c : character) = #name c
 	fun ctype (c : character) = #ctype c
 
-	fun get _ _ = raise Fail ""
+	fun get (c : character) field =
+		case #data c of
+			NONE => raise ShortCharacter
+			| SOME formdata => Option.getOpt (Form.get formdata field, "")
 
 	fun load _ = raise Fail ""
 

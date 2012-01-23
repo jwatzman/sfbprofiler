@@ -1,7 +1,7 @@
 structure MT = struct
 	local
-		fun dammitj4cbo (formdata, name) =
-			{formdata = formdata, name = name}
+		fun dammitj4cbo (character, name) =
+			{character = character, name = name}
 	in
 		val cbox = MTcbox.render o dammitj4cbo
 		val text = MTtext.render o dammitj4cbo

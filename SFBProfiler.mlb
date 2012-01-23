@@ -18,7 +18,6 @@ datamodels/CharacterType.sml
 datamodels/Character.sig
 datamodels/Character.sml
 
-templates/mini/MTUtil.sml
 templates/mini/MTcbox.html.sml
 templates/mini/MTtext.html.sml
 templates/mini/MTsmtext.html.sml
