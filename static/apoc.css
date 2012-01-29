@@ -25,11 +25,15 @@
 	border-width: 1px;
 	margin: 0px;
 	padding: 0px;
-	width: 798px;
+	width: 800px;
+}
+
+.body textarea {
+	height: 200px;
 }
 
 .body .halfwidthcol textarea {
-	width: 388px;
+	width: 390px;
 }
 
 .body .halfwidthcol input {
@@ -38,10 +42,6 @@
 
 .body input.statsinput {
 	width: 20px;
-}
-
-.body textarea {
-	height: 200px;
 }
 
 .body h1 {
