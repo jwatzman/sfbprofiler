@@ -36,6 +36,7 @@ pages/Login.sml
 pages/Home.sml
 pages/NewCharacter.sml
 pages/EditCharacter.sml
+pages/SaveCharacter.sml
 
 main/chiral.sml
 main/Profiler.sig

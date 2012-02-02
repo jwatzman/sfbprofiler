@@ -1,2 +1,5 @@
 <?template MTcbox {character, name} ?>
-<input type="checkbox" name="${name}" value="${Character.get character name}" />
+<ihatestilts t:strip="">
+	<input t:if="(size (Character.get character name)) = 11" type="checkbox" name="${name}" value="ihatestilts" checked="checked" />
+	<input t:if="(size (Character.get character name)) <> 11" type="checkbox" name="${name}" value="ihatestilts" />
+</ihatestilts>

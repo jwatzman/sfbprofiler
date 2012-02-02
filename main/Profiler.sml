@@ -9,6 +9,7 @@ structure Profiler :> PROFILER = struct
 			"" => Home.handler
 			| "new" => NewCharacter.handler
 			| "edit" => EditCharacter.handler
+			| "save" => SaveCharacter.handler
 			| _ => raise WebUtil.notFound
 
 		val sessionopt = Session.load req
