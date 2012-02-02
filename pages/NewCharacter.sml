@@ -31,7 +31,7 @@ structure NewCharacter :> PAGE = struct
 
 			val () = Character.new owner name ctype
 		in
-			Home.handler session args form
+			raise WebUtil.redirect "/"
 		end)
 			handle NewCharacterError s =>
 				Response.new ("Error creating character", Web.HTML s)
