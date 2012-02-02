@@ -47,5 +47,6 @@ structure Character :> CHARACTER = struct
 	fun new owner name ctype = SQL.newCharacter
 		(User.uid owner, name, CharacterType.typeToInt ctype)
 
-	fun update _ _ _ = raise Fail ""
+	fun update (c : character) newdata =
+		SQL.updateCharacter (Form.export newdata, #charid c)
 end

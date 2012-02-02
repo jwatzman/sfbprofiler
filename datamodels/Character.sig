@@ -10,13 +10,10 @@ signature CHARACTER = sig
 	val loadByOwner : User.user -> character list
 
 	val new : User.user -> string -> CharacterType.ctype -> unit
+	val update : character -> Form.form -> unit
 
 	val charid : character -> int
 	val name : character -> string
 	val ctype : character -> CharacterType.ctype
-
 	val get : character -> string -> string
-
-	(* character id -> owner -> data -> success? *)
-	val update : int -> int -> Form.form -> bool
 end
