@@ -21,7 +21,8 @@ structure EditCharacter :> PAGE = struct
 				| SOME c => c
 
 			val (renderer, css) = case Character.ctype character of
-				APOC => (TEditApoc.render, "static/apoc.css")
+				CharacterType.APOC => (TEditApoc.render, "static/apoc.css")
+				| CharacterType.TEST => (TEditTest.render, "static/test.css")
 		in
 			Response.addCss
 				(Response.new (

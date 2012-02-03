@@ -1,0 +1,13 @@
+<?template TEditTest {character} ?>
+<form action="/save" method="post">
+	<input type="hidden" name="charid" value="${Int.toString (Character.charid character)}" />
+	<ul>
+		<li><h1>Foo</h1></li>
+		<li>$H{MT.text (character, "foo")}</li>
+		<li><h1>Bar</h1></li>
+		<li>$H{MT.ta (character, "bar")}</li>
+		<li><h1>Baz</h1></li>
+		<li>$H{MT.cbox (character, "baz")}</li>
+		<li><input type="submit" value="Save" /></li>
+	</ul>
+</form>
