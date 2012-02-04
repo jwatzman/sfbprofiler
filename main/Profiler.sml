@@ -47,7 +47,7 @@ structure Profiler :> PROFILER = struct
 	fun main () =
 	let
 		val () = print "Listening...\n"
-		val _ = CHTTPServer.spawn_server (INetSock.any 8080) app
+		val _ = CHTTPServer.spawn_server (INetSock.any 8081) app
 		val () = T.run ()
 	in
 		()

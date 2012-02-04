@@ -10,7 +10,7 @@ structure Response :> RESPONSE = struct
 	fun addCss {title, body, css} newCss =
 		{title = title, body = body, css = newCss::css}
 
-	val cssBase = "http://sfbprofiler.jwatzman.org:8080/"
+	val cssBase = "http://sfbprofiler.jwatzman.org:8081/"
 
 	fun render {title, body, css} =
 		TPage.render {
