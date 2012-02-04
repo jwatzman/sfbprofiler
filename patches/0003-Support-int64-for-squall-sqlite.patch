@@ -1,0 +1,89 @@
+From fb1e55b2bd69bbdde2ccf3b9215c7bff6ed34ccd Mon Sep 17 00:00:00 2001
+From: Josh Watzman <jwatzman@jwatzman.org>
+Date: Sat, 4 Feb 2012 00:10:41 -0800
+Subject: [PATCH] Support int64 for squall+sqlite
+
+But not MySQL yet, because I don't care.
+---
+ db/sqlite/sqlite.sml        |    2 +-
+ db/squall/input.grm         |    1 +
+ db/squall/input.lex         |    2 +-
+ db/squall/input.sml         |    2 +-
+ db/squall/squall-sqlite.sml |    3 +++
+ 5 files changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/db/sqlite/sqlite.sml b/db/sqlite/sqlite.sml
+index 94a7bbc..e5c10d1 100644
+--- a/db/sqlite/sqlite.sml
++++ b/db/sqlite/sqlite.sml
+@@ -94,7 +94,7 @@ structure SQLite :> SQLITE = struct
+         (get stmt, num, value)
+ 
+   fun bind_int64 (stmt, num, value) =
+-        (_import "sqlite3_bind_int" : ptr * int * Int64.int -> int;)
++        (_import "sqlite3_bind_int64" : ptr * int * Int64.int -> int;)
+         (get stmt, num, value)
+ 
+   fun bind_null (stmt, num) =
+diff --git a/db/squall/input.grm b/db/squall/input.grm
+index 5c89528..68f075b 100644
+--- a/db/squall/input.grm
++++ b/db/squall/input.grm
+@@ -4,6 +4,7 @@ exception ParseError of string
+ 
+ fun type_lookup "string" = String
+   | type_lookup "int" = Int
++  | type_lookup "int64" = Int64
+   | type_lookup t = raise ParseError ("Unknown type: \"" ^ t ^ "\"")
+ 
+ fun engine_lookup s =
+diff --git a/db/squall/input.lex b/db/squall/input.lex
+index 535c409..a8771f9 100644
+--- a/db/squall/input.lex
++++ b/db/squall/input.lex
+@@ -17,7 +17,7 @@ fun eof () = EOF (!lineNum, !lineNum)
+ %s HEADER SQL ;
+ 
+ whitespace = [\ \t];
+-token = [a-zA-Z_'];
++token = [a-zA-Z1-9_'];
+ sqlline = ([^-\n] .* "\n") 
+         | ("-" ([^-\n] .* "\n" | "\n"))
+         | ("--" ([^-\n] .* "\n" | "\n"));
+diff --git a/db/squall/input.sml b/db/squall/input.sml
+index d1e5514..5f30414 100644
+--- a/db/squall/input.sml
++++ b/db/squall/input.sml
+@@ -2,7 +2,7 @@ structure SquallInput = struct
+ 
+   datatype engine = SQLite | MySQL
+ 
+-  datatype vartype = String | Int
++  datatype vartype = String | Int | Int64
+ 
+   datatype varspec = Vrequired of vartype | Voption of vartype | Vlist of vartype
+ 
+diff --git a/db/squall/squall-sqlite.sml b/db/squall/squall-sqlite.sml
+index 04c231d..204f039 100644
+--- a/db/squall/squall-sqlite.sml
++++ b/db/squall/squall-sqlite.sml
+@@ -12,6 +12,8 @@ end = struct
+    *)
+   fun generateBindFunc (ivar, pos, SI.Int) =
+         "SQLite.bind_int (s, " ^ Int.toString (pos + 1) ^ ", " ^ ivar ^ ")"
++    | generateBindFunc (ivar, pos, SI.Int64) =
++        "SQLite.bind_int64 (s, " ^ Int.toString (pos + 1) ^ ", " ^ ivar ^ ")"
+     | generateBindFunc (ivar, pos, SI.String) =
+         "SQLite.bind_text (s, " ^ Int.toString (pos + 1) ^ ", " ^ ivar ^ ")"
+ 
+@@ -38,6 +40,7 @@ end = struct
+    * will read out the given value from the statement "s".
+    *)
+   fun generateReader (idx, SI.Int) = "SQLite.column_int (s, " ^ Int.toString idx ^ ")"
++    | generateReader (idx, SI.Int64) = "SQLite.column_int64 (s, " ^ Int.toString idx ^ ")"
+     | generateReader (idx, SI.String) = "(case SQLite.column_text (s, " ^ Int.toString idx ^ ")of SOME s=>s|_=>raise(DataFormatError\""^Int.toString idx ^ "\"))"
+ 
+   (* fun generateConv: int * varspec -> string
+-- 
+1.7.7.4
+

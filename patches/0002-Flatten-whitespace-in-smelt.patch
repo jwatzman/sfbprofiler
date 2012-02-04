@@ -1,0 +1,56 @@
+From a04f29c760d85561fb69520d384c3814228195bf Mon Sep 17 00:00:00 2001
+From: Josh Watzman <jwatzman@jwatzman.org>
+Date: Sun, 4 Dec 2011 13:41:46 -0800
+Subject: [PATCH 1/2] Flatten whitespace in smelt
+
+HTML specifies that successive characters of whitespace are to be treated as a
+single space. The XML parser just injects whitespace as if it were other text,
+so add an extra pass to smelt to flatten this whitespace.
+---
+ smelt/templategen.sml |   24 +++++++++++++++++++++++-
+ 1 files changed, 23 insertions(+), 1 deletions(-)
+
+diff --git a/smelt/templategen.sml b/smelt/templategen.sml
+index 48dc69e..ad7c1ea 100644
+--- a/smelt/templategen.sml
++++ b/smelt/templategen.sml
+@@ -244,6 +244,28 @@ struct
+        else raise Fail "incomplete optimization"
+      end
+ *)
++
++  (* val flattenWs: gen -> gen
++
++     HTML specifies that adjacent characters of whitespace are treated as one,
++     so flatteh them all to a single space.
++  *)
++  fun flattenWs (GenText s) =
++    let
++      fun flattenChars (c, #" "::rest) =
++          if Char.isSpace c then #" "::rest else c::(#" "::rest)
++        | flattenChars (c, rest) =
++          if Char.isSpace c then #" "::rest else c::rest
++    in
++      GenText (implode (foldr flattenChars [] (explode s)))
++    end
++    | flattenWs (GenConcat l) = GenConcat (map flattenWs l)
++    | flattenWs (GenIterate (k, v, t, sep)) =
++        GenIterate (k, v, flattenWs t, sep)
++    | flattenWs (GenCaseOf (e, opts)) =
++        GenCaseOf (e, map (fn (e, g) => (e, flattenWs g)) opts)
++    | flattenWs g = g
++
+   (* val findTemplatePI: X.procinst list -> string option
+ 
+      Return the value of the first <?template ... ?> processing instruction,
+@@ -266,6 +288,6 @@ struct
+               val (sname, itype) = SS.splitl (not o Char.isSpace) (SS.full s)
+             in
+               (SS.string sname, SS.string itype,
+-                optimizeGen (genNode (X.XElementNode e)))
++                flattenWs (optimizeGen (genNode (X.XElementNode e))))
+             end
+ end
+-- 
+1.7.7.4
+
