@@ -1,18 +1,18 @@
 engine: sqlite
 
---- getUserByUid: int -> {uid : int, name : string} option
+--- getUserByUid: int64 -> {uid : int64, name : string} option
 SELECT uid, name FROM users WHERE uid = ?
 
---- newUser: (int * string) -> unit
+--- newUser: (int64 * string) -> unit
 INSERT INTO users (uid, name) VALUES (?, ?)
 
---- getCharacter: (int * int) -> {charid : int, name : string, ctype : int, data : string} option
+--- getCharacter: (int * int64) -> {charid : int, name : string, ctype : int, data : string} option
 SELECT charid, name, ctype, data FROM characters WHERE charid = ? AND owner = ?
 
---- getShortCharactersForOwner: int -> {charid : int, name : string, ctype : int} list
+--- getShortCharactersForOwner: int64 -> {charid : int, name : string, ctype : int} list
 SELECT charid, name, ctype FROM characters WHERE owner = ?
 
---- newCharacter: (int * string * int) -> unit
+--- newCharacter: (int64 * string * int) -> unit
 INSERT INTO characters (owner, name, ctype, data) VALUES (?, ?, ?, "")
 
 --- updateCharacter: (string * int) -> unit

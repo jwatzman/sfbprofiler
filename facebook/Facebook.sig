@@ -3,6 +3,6 @@ signature FACEBOOK = sig
 	val load : Web.request -> facebook option
 	val appId : string
 
-	val uid : facebook -> int
+	val uid : facebook -> Int64.int
 	val name : facebook -> string
 end

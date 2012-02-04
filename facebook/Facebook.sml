@@ -6,7 +6,7 @@ structure Facebook :> FACEBOOK = struct
 
 	type facebook = {
 		code : string,
-		uid : int
+		uid : Int64.int
 	}
 
 	fun assertOpt NONE = raise FacebookLoadError
@@ -99,7 +99,6 @@ structure Facebook :> FACEBOOK = struct
 
 		val (algorithm, code, uid) =
 			(let
-				val _ = "extracting json\n"
 				val SOME(json_blob) = Base64.decode (base64pad data)
 				val SOME(JSON.Object map) = JSON.fromString json_blob
 
@@ -110,7 +109,7 @@ structure Facebook :> FACEBOOK = struct
 				val SOME(JSON.String uid) =
 					JSON.Map.find (map, "user_id")
 			in
-				(algorithm, code, assertOpt (Int.fromString uid))
+				(algorithm, code, assertOpt (Int64.fromString uid))
 			end) handle Bind => raise FacebookLoadError
 
 		val () = assert (algorithm = "HMAC-SHA256")

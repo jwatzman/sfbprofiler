@@ -1,6 +1,6 @@
 structure User :> USER = struct
 	type user = {
-		uid : int,
+		uid : Int64.int,
 		name : string
 	}
 
